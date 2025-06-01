@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D^3 Invitation</title>
+    <style>
+        body {
+            background-color: #e8f4ff;
+            font-family: 'Arial', sans-serif;
+            color: #2c3e50;
+        }
+        .invitation-card {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(41, 128, 185, 0.15);
+            text-align: center;
+            border: 1px solid #d6eaff;
+        }
+        .avatar-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 5px solid #3498db;
+        }
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .user-id {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #2980b9;
+        }
+        .invitation-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 30px 0;
+            color: #34495e;
+        }
+        h1 {
+            color: #3498db;
+        }
+        .details {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .details p {
+            margin: 8px 0;
+            color: #2c3e50;
+        }
+        button#shareBtn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button#shareBtn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+<div class="invitation-card">
+    <h1>D^3CTF Invitation</h1>
+    <div class="avatar-container">
+        <img id="userAvatarDisplay" src="" alt="User Avatar">
+    </div>
+    <div class="user-id" id="userIdDisplay"></div>
+    <div class="invitation-text">
+        You're warmly invited to join <strong>D^3CTF</strong>.
+        <br><br>
+        Come showcase your skills,<br>learn something new,<br>and have fun with the competition!
+        <br><br>
+        Looking forward to your participation!
+    </div>
+    <div class="details">
+        <p><strong>Competition (Online)</strong></p>
+        <p>2025/5/30 12:00 PM (UTC) ~ 2025/5/31 12:00 PM (UTC)</p>
+    </div>
+</div>
+
+<script src="static/js/tools.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const user_id = params.get('user_id');
+
+        const access_key_id = params.get('access_key_id');
+        const secret_access_key = params.get('secret_access_key');
+        const session_token = params.get('session_token');
+        const object_name = params.get('object_name');
+
+        if (user_id) {
+            document.getElementById('userIdDisplay').textContent = user_id;
+        }
+
+        if (access_key_id && secret_access_key && session_token && object_name) {
+            document.getElementById('userAvatarDisplay').src = getAvatarUrl(access_key_id, secret_access_key, session_token, object_name);
+        }
+
+        if (window.history && window.history.replaceState) {
+            const cleanUrl = window.location.protocol + "//" +
+                window.location.host +
+                window.location.pathname;
+            window.history.replaceState({}, document.title, cleanUrl);
+        }
+    });
+</script>
+</body>
+</html>

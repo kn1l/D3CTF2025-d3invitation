@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  minio:
+    build: minio
+    ports:
+      - "9000:9000"
+
+
+  webapp:
+    build: webapp
+    ports:
+      - "8080:8080"
+    environment:
+      FLAG: d3ctf{d3invitation}
+    depends_on:
+      - minio
